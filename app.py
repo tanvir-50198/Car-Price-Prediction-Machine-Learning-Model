@@ -45,32 +45,28 @@ if st.button("Predict"):
         ]
     )
 
-    input_data_model['owner'].replace(
+    input_data_model['owner'] = input_data_model['owner'].replace(
         ['First Owner', 'Second Owner', 'Third Owner',
          'Fourth & Above Owner', 'Test Drive Car'],
-        [1, 2, 3, 4, 5],
-        inplace=True
+        [1, 2, 3, 4, 5]
     )
 
-    input_data_model['fuel'].replace(
+    input_data_model['fuel'] = input_data_model['fuel'].replace(
         ['Diesel', 'Petrol', 'LPG', 'CNG'],
-        [1, 2, 3, 4],
-        inplace=True
+        [1, 2, 3, 4]
     )
 
-    input_data_model['seller_type'].replace(
+    input_data_model['seller_type'] = input_data_model['seller_type'].replace(
         ['Individual', 'Dealer', 'Trustmark Dealer'],
-        [1, 2, 3],
-        inplace=True
+        [1, 2, 3]
     )
 
-    input_data_model['transmission'].replace(
+    input_data_model['transmission'] = input_data_model['transmission'].replace(
         ['Manual', 'Automatic'],
-        [1, 2],
-        inplace=True
+        [1, 2]
     )
 
-    input_data_model['name'].replace(
+    input_data_model['name'] = input_data_model['name'].replace(
         ['Maruti', 'Skoda', 'Honda', 'Hyundai', 'Toyota', 'Ford',
          'Renault', 'Mahindra', 'Tata', 'Chevrolet', 'Datsun',
          'Jeep', 'Mercedes-Benz', 'Mitsubishi', 'Audi',
@@ -80,10 +76,13 @@ if st.button("Predict"):
         [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
          11, 12, 13, 14, 15, 16, 17, 18,
          19, 20, 21, 22, 23, 24, 25, 26,
-         27, 28, 29, 30, 31],
-        inplace=True
+         27, 28, 29, 30, 31]
     )
 
+    # Convert everything to numeric
+    input_data_model = input_data_model.apply(pd.to_numeric)
+
+    # Predict
     car_price = model.predict(input_data_model)
 
     st.success(f"Estimated Car Price: $ {car_price[0]:,.0f}")
